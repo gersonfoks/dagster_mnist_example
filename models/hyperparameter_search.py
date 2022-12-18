@@ -45,7 +45,7 @@ class HyperparameterSearch:
 
     def search(self):
         '''
-        Perform hyperparameter search
+        Perform hyperparameter search with help of optuna
         :return:
         '''
 

@@ -1,21 +1,11 @@
 # Introduction
 
-This projects gives an example on how to use Dagster to build a simple training pipeline.
+This projects gives an example on how to use Dagster to build a simple training and hyperparameter search pipeline.
 
-## Overview
+It shows how you can create assets, jobs, ops, graphs and repositories. The main entrypoint is the 'main_pipeline.py'
+file.
 
-The pipeline is composed of the following steps:
-
-- Preprocessing the data
-- Model creation
-- Training the model
-- Evaluation of the model
-
-With this setup we are also able to reuse the steps in other pipelines. Such as a hyperparameter tuning pipeline.
-
-# Setup
-
-# run the pipeline
+# Usage
 
 To open the pipeline in dagit, you can use the following command:
 
@@ -25,12 +15,10 @@ dagit -f main_pipeline.py
 
 ```
 
-There are two pipelines defined in this file:
+There are two pipelines defined:
+
 - `main_pipeline` is the main pipeline
 - `hyperparametersearch_pipeline` is used for a hyperparameter search
-
-
-
 
 # TODO
 
@@ -38,5 +26,7 @@ There are two pipelines defined in this file:
 - [x] Add evaluation step
 - [x] Add a hyperparameter tuning pipeline
 - [x] Add a saving model step 
+- [ ] Add a saving hyperparameter search results step.
+
 
 

@@ -1,4 +1,3 @@
-
 from dagster import op, multi_asset, AssetOut, Out, graph, GraphOut
 from torch.utils.data import Dataset, Subset
 from torchvision.datasets import MNIST
@@ -13,6 +12,9 @@ loading_emnist = 'load_mnst'
     "mnist_test": AssetOut(),
 })
 def mnist() -> tuple[Dataset, Dataset]:
+    ''''
+    Load the MNIST dataset, both the training and test set
+    '''
     mnist_train = MNIST('./data/', download=True, train=True, )
     mnist_test = MNIST('./data/', download=True, train=False, )
     return mnist_train, mnist_test
@@ -20,7 +22,7 @@ def mnist() -> tuple[Dataset, Dataset]:
 
 # Next we do the preprocessing
 def preprocess_mnist_factory(
-    name="preprocess_mnist",
+        name="preprocess_mnist",
 ):
     """
     Args:
@@ -38,13 +40,14 @@ def preprocess_mnist_factory(
         context.log.info(dataset)
 
         return dataset
+
     return preprocess_mnist
 
 
 @op
-def preprocess_mnist(context, mnist: Dataset) -> Dataset:
+def preprocess_mnist(mnist: Dataset) -> Dataset:
     mnist.transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize(0.5, 0.5)])
-    context.log.info(mnist)
+
     return mnist
 
 
@@ -61,11 +64,11 @@ def split_train_val(context, dataset: Dataset) -> tuple[Dataset, Dataset]:
     return train_dataset, test_dataset
 
 
-@graph(out={"train_dataset": GraphOut(), "val_dataset": GraphOut(), "test_dataset": GraphOut(),})
+@graph(out={"train_dataset": GraphOut(), "val_dataset": GraphOut(), "test_dataset": GraphOut(), })
 def load_and_preprocess_mnist() -> tuple[Dataset, Dataset, Dataset]:
     '''
     Main entrypoint for loading and preprocessing mnist. It creates a train, val and test dataset.
-    :return:
+    :return: train_dataset, val_dataset, test_dataset.
     '''
     train_dataset, test_dataset = mnist()
     preprocess_train = preprocess_mnist_factory("preprocess_train")
