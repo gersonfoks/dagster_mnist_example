@@ -1,0 +1,6 @@
+ops:
+  op_using_config:
+    config:
+      model_config:
+        model_name: test
+        

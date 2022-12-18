@@ -1,0 +1,11 @@
+model_name: "test_name"
+save_location: "./saved_models/test_model/"
+layers:
+  - input_size: 784
+    output_size: 512
+  - input_size: 512
+    output_size: 256
+  - input_size: 256
+    output_size: 10
+
+
